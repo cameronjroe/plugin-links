@@ -7,6 +7,11 @@
 ```sh
 $ npm install plugin-links --save
 ```
+
+## Example
+
+[Example of Metalsmith Plugins](https://github.com/cameronjroe/plugin-links/blob/master/PLUGINS.md)
+
 ## Usage
 
 ```js
@@ -24,9 +29,6 @@ let pluginLinks = new PluginLinks({
   - **prefix** {string} - namespace to search on github (required)
   - **fileName** {string} - name of markdown file to be created (optional)
   - **pages** {number} - amount of pages to search on github (optional)
-
-
-[Example of Metalsmith Plugins](https://github.com/cameronjroe/plugin-links/blob/master/PLUGINS.md)
 
 ## Testing
 
