@@ -26,6 +26,8 @@ let pluginLinks = new PluginLinks({
   - **pages** {number} - amount of pages to search on github (optional)
 
 
+[Example of Metalsmith Plugins](https://github.com/cameronjroe/plugin-links/blob/master/PLUGINS.md)
+
 ## Testing
 
 ```sh

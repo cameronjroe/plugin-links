@@ -18,11 +18,13 @@ describe("Metalsmith Plugins", () => {
       items: [
       {
         name: 'metalsmith-templates',
-        url: 'https://github.com/segmentio/metalsmith-templates'
+        url: 'https://github.com/segmentio/metalsmith-templates',
+        html_url: 'https://github.com/segmentio/metalsmith-templates'
       },
       {
         name: 'metalsmith-layouts',
-        url: 'https://github.com/segmentio/metalsmith-layouts'
+        url: 'https://github.com/segmentio/metalsmith-layouts',
+        html_url: 'https://github.com/segmentio/metalsmith-layouts'
       }
       ]
     };
@@ -59,8 +61,8 @@ describe("Metalsmith Plugins", () => {
     p.create().then((res) => {
       expect(
         res.indexOf(
-          '- [metalsmith-templates](https://api.github.com/repos/segmentio/metalsmith-templates)\n' + 
-          '- [metalsmith-collections](https://api.github.com/repos/segmentio/metalsmith-collections)'
+          '- [metalsmith-templates](https://github.com/segmentio/metalsmith-templates)\n' + 
+          '- [metalsmith-collections](https://github.com/segmentio/metalsmith-collections)'
         )
       ).to.not.equal(-1);
       done();
