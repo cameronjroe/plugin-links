@@ -4,7 +4,6 @@ import fs from 'fs';
 import q from 'q';
 
 class PluginLinks {
-
   constructor(options) {
     if (!options.prefix || typeof options.prefix !== 'string') {
       throw new Error('Must pass in plugin prefix name as string. Ex. {prefix: \'metalsmith\'}');
