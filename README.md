@@ -23,6 +23,11 @@ let pluginLinks = new PluginLinks({
   pages: 1
 });
 
+pluginLinks.create().then((string) => {
+  // PLUGINS.md created
+  console.log(string) // - [prefix-plugin](http://github.com/plugin/plugin-name)
+});
+
 ```
 
 ## Options
