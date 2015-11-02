@@ -4,6 +4,7 @@ import fs from 'fs';
 import q from 'q';
 
 class PluginLinks {
+
   constructor(options) {
     if (!options.prefix || typeof options.prefix !== 'string') {
       throw new Error('Must pass in plugin prefix name as string. Ex. {prefix: \'metalsmith\'}');
@@ -15,13 +16,13 @@ class PluginLinks {
   }
 
   _hasPluginPrefix(url) {
-    return url.indexOf(`/${this.prefix}-`) !== -1;
+    return url.indexOf(`/${ this.prefix }-`) !== -1;
   }
-  
+
   _getPluginRepoList(data, cb) {
     var plugins = _.reduce(data.items, (acc, item, i) => {
-      if ( this._hasPluginPrefix(item.url) ) {
-        var markdownLink = `- [${item.name}](${item.html_url})`;
+      if (this._hasPluginPrefix(item.url)) {
+        var markdownLink = `- [${ item.name }](${ item.html_url })`;
         acc.push(markdownLink);
         return acc;
       } else {
@@ -33,11 +34,11 @@ class PluginLinks {
 
   _writePluginMarkdown(plugins, cb) {
     var flat = _.flatten(plugins);
-    var ps = _.forEach(flat, (plugin) => {
+    var ps = _.forEach(flat, plugin => {
       return plugin;
     });
     var string = ps.join('\n');
-    fs.writeFile(`${this.fileName}.md`, string, 'utf8', (err) => {
+    fs.writeFile(`${ this.fileName }.md`, string, 'utf8', err => {
       if (err) throw new Error(err);
       cb(string);
     });
@@ -45,22 +46,21 @@ class PluginLinks {
 
   create() {
     var dfd = q.defer();
-    var promises = _.times(this.pages, (page) => {
-      var url = `https://api.github.com/search/repositories?q=${this.prefix}-&per_page=${100}&page=${page}`;
-      return axios.get(url)
-        .then((res) => {
-          var d = q.defer();
-          this._getPluginRepoList(res.data, (list) => {
-            d.resolve(list);
-          });
-          return d.promise;
+    var promises = _.times(this.pages, page => {
+      var url = `https://api.github.com/search/repositories?q=${ this.prefix }-&per_page=${ 100 }&page=${ page }`;
+      return axios.get(url).then(res => {
+        var d = q.defer();
+        this._getPluginRepoList(res.data, list => {
+          d.resolve(list);
         });
+        return d.promise;
+      });
     });
-    q.allSettled(promises).then((results) => {
-      var plugins = _.map(results, (result) => {
+    q.allSettled(promises).then(results => {
+      var plugins = _.map(results, result => {
         return result.value;
       });
-      this._writePluginMarkdown(plugins, (string) => {
+      this._writePluginMarkdown(plugins, string => {
         dfd.resolve(string);
       });
     });
